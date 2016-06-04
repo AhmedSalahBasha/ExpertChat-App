@@ -1,0 +1,72 @@
+.thumbnail{
+	margin-top: 10%;
+}
+
+.title{
+	text-align: center;
+	color: #3498db;
+}
+.userPic{
+	width: 50px;
+	border-right: 1px solid gray;
+}
+
+.userPic-chat{
+	width: 45px;
+	border-radius: 3px;
+	background-color: yellow;
+}
+
+.userPic-box{
+	width: 35px;
+	border-radius: 3px;
+	background-color: yellow;
+}
+
+.userName{
+	display: inline;
+	position: relative;
+	top: 5px;
+	left: 4px;
+}
+
+.userbox{
+	border: 1px solid gray;
+	border-radius: 4px;
+}
+
+#logout, #more-rooms{
+	float: right;
+	margin-top: 8px;
+	margin-right: 4px;
+}
+
+.messages-box, .users-box{
+	margin-top: 10px;
+}
+
+.messages{
+	max-height: 400px;
+	overflow: scroll;
+}
+
+.msg{
+	background-color: #ecf0f1;
+	color: black;
+	border-radius: 6px;
+	height: 60px;
+	max-width: 90%;
+	position: relative;
+	left: 45px;
+	top: -46px;
+}
+
+.msg p{
+	margin-left: 5px;
+	padding-top: 5px;
+}
+
+.newmessage-div{
+	margin-left: 2%;
+	margin-right: 2%;
+}

@@ -1,0 +1,22 @@
+{
+  "name": "expert-chat",
+  "version": "0.0.1",
+  "description": "this is a chat room developed using nodejs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Ahmed Salah",
+  "license": "ISC",
+  "dependencies": {
+    "connect-mongo": "^1.2.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.2.0",
+    "express-session": "^1.13.0",
+    "hogan-express": "^0.5.2",
+    "mongoose": "^4.1.9",
+    "passport": "^0.2.0",
+    "passport-facebook": "^1.0.3",
+    "socket.io": "^0.8.7"
+  }
+}

@@ -1,0 +1,10 @@
+{
+	"dbURL": "mongodb://abosalah:abosalah@ds023303.mlab.com:23303/expertchat",
+	"sessionSecret": "ASDLFASDFH2349524ASDFASD14ASEFD",
+	"fb": {
+		"appID": "1121546627866202",
+		"appSecret": "28415bb776c6db3333f5215f8dc3e5cc",
+		"callbackURL": "http://expert-chat.herokuapp.com/auth/facebook/callback"
+	},
+	"host": "http://expert-chat.herokuapp.com"
+}

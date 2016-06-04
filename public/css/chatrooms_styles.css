@@ -1,0 +1,33 @@
+.thumbnail{
+	margin-top: 15%;
+}
+.userPic{
+	width: 50px;
+	border-right: 1px solid gray;
+}
+
+.userName{
+	display: inline;
+	position: relative;
+	top: 5px;
+	left: 4px;
+}
+
+.userbox{
+	border: 1px solid gray;
+	border-radius: 4px;
+}
+
+#logout{
+	float: right;
+	margin-top: 8px;
+	margin-right: 4px;
+}
+
+.newroom-box{
+	margin-top: 4px;
+}
+
+.list-group-item:hover{
+	background-color: #ecf0f1;
+}

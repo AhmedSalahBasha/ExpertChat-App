@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{title}}</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/chatrooms_styles.css">
+	<script src="/socket.io/socket.io.js"></script>
+	<!-- CDNs Jquery & Bootstrap -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 col-md-6">
+		    	<div class="thumbnail">
+					<h1 class="title">Chat Rooms</h1>
+					<div class="userbox">
+						<img src="{{user.profilePic}}" alt="" class="userPic">
+						<h3 class="userName">{{user.fullname}} <a class="btn btn-warning" id="logout" href="/logout">Logout</a></h3>
+					</div>
+					<div class="panel panel-default newroom-box">
+					  <!-- Default panel contents -->
+					  	<div class="panel-heading">
+						  	<div class="input-group">
+								<input type="text" class="form-control newRoom" autocomplete="off" placeholder="Type the name of room ..." required="true">
+								<span class="input-group-btn">
+									<button class="btn btn-primary" id="create">Create New Room</button>
+								</span>
+							</div>
+					  	</div>
+					  	<!-- List group -->
+					  	<ul class="list-group roomlist">
+
+					  	</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--**** Javascripts Codes Goes Here ****-->
+	<script>
+		$(function(){
+			var host = '{{config.host}}';
+			var socket = io.connect(host + '/roomlist');
+
+			socket.on('connect', function(){
+				console.log('Connection Established!');
+			});
+
+			socket.on('roomupdate', function(data){
+				var procData = JSON.parse(data);
+				$('.roomlist').html('');
+				for(var i = 0; i < procData.length; i++){
+					var str = '<a href="room/' + procData[i].room_number + '"><li class="list-group-item">' + procData[i].room_name + '</li></a>';
+					$('.roomlist').prepend(str);
+				}
+			})
+
+
+
+			$(document).on('click', '#create', function(){
+				var room_name = $('.newRoom').val();
+				if(room_name!=''){
+					var room_number = parseInt(Math.random() * 10000);
+					socket.emit('newroom', {room_name: room_name, room_number: room_number});
+					$('.newRoom').val('');
+				}
+			});
+		});
+	</script>
+</body>
+</html>

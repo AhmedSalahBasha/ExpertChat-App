@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{room_name}}</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/room_styles.css">
+	<script src="/socket.io/socket.io.js"></script>
+	<!-- CDNs Jquery & Bootstrap -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 col-md-8">
+		    	<div class="thumbnail">
+					<h1 class="title">{{room_name}}</h1>
+					<div class="userbox">
+						<img src="{{user.profilePic}}" alt="" class="userPic">
+						<h3 class="userName">{{user.fullname}}
+							<a class="btn btn-warning" id="logout" href="/logout">Logout</a>
+							<a class="btn btn-info" id="more-rooms" href="/chatrooms">More Chat Rooms</a>
+						</h3>
+					</div>
+					<div class="messages-box">
+						<div class="col-md-8">
+							<ul class="list-group">
+								<li class="list-group-item messages">
+									
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="users-box">
+						<div class="col-md-4">
+							<ul class="list-group users">
+								
+							</ul>
+						</div>
+					</div>
+					<div class="newmessage-div">
+						<input type="text" class="form-control newmessage" autocomplete="off" placeholder="Type your message and press enter !">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- JavaScript Codes Goes HERE -->
+	<script>
+		$(function(){
+			var host = '{{config.host}}';
+			var messages = io.connect(host + '/messages');
+			var roomNum = {{room_number}};
+			var userName = '{{user.fullname}}';
+			var userPic = '{{user.profilePic}}';
+
+			messages.on('connect', function(){
+				console.log('Connection Established!');
+				messages.emit('joinroom', {
+					room: roomNum,
+					user: userName,
+					userPic: userPic
+				});
+			});
+
+			$(document).on('keyup', '.newmessage', function(e){
+				if(e.which === 13 && $(this).val()!=''){
+					messages.emit('newMessage', {
+						room_number: roomNum,
+						user: userName,
+						userPic: userPic,
+						message: $(this).val()
+					});
+					updateMessageFeed(userPic, $(this).val());
+					$(this).val('');
+				}
+			});
+
+			messages.on('messagefeed', function (data) {
+				var msgs = JSON.parse(data);
+				updateMessageFeed(msgs.userPic, msgs.message)
+			});
+
+			function updateMessageFeed(userPic, message){
+				var str = '<div class="msgbox">';
+					str +=	'<div class="pic">';
+					str +=		'<img class="userPic-chat" src="'+userPic+'"></div>';
+					str +=		'<div class="msg">';
+					str +=			'<p>'+message+'</p>';
+					str +=		'</div>';
+					str +=	'</div>';
+
+				$(str).hide().appendTo($('.messages')).slideDown(150);
+			}
+
+			messages.on('updateUsersList', function (data) {
+				var userlist = JSON.parse(data);
+				$('.users').html('');
+				for(var n = 0; n < userlist.length; n++){
+					var str =	'<li class="list-group-item">';
+						str +=		'<img class="userPic-box" src="'+userlist[n].userPic+'">';
+						str +=		'<h4 class="userName">'+userlist[n].user+'</h4>';
+						str +=	'</li>';
+
+					$(str).appendTo($('.users'));
+				}
+			});
+
+			setInterval(function () {
+				messages.emit('updateList', {room: roomNum});
+			}, 15 * 1000);		
+		});
+	</script>
+
+</body>
+</html>
