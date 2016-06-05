@@ -1,9 +1,26 @@
-.thumbnail{
-	margin-top: 15%;
+body{
+	background-color: #F2F1EF;
 }
+
+.thumbnail{
+	margin-top: 5%;
+}
+
+.title{
+	color: #6C7A89;
+	text-align: center;
+}
+
+.user-info-tbl{
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-right: 1.5%;
+	margin-left: 1.5%;
+}
+
 .userPic{
 	width: 50px;
-	border-right: 1px solid gray;
+	border-radius: 4px;
 }
 
 .userName{
@@ -13,11 +30,6 @@
 	left: 4px;
 }
 
-.userbox{
-	border: 1px solid gray;
-	border-radius: 4px;
-}
-
 #logout{
 	float: right;
 	margin-top: 8px;
@@ -25,9 +37,21 @@
 }
 
 .newroom-box{
-	margin-top: 4px;
+	margin-top: 10px;
+	margin-right: 1.5%;
+	margin-left: 1.5%;
+	max-height: 450px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .list-group-item:hover{
 	background-color: #ecf0f1;
+	text-decoration: none !important;
+}
+
+.rooms-name{
+	text-decoration: none !important;
+	color: #6C7A89;
+	font-size: 18px;
 }

@@ -1,14 +1,27 @@
+body{
+	background-color: #F2F1EF;
+}
+
 .thumbnail{
-	margin-top: 10%;
+	margin-top: 5%;
+	/*margin-bottom: 5%;*/
 }
 
 .title{
 	text-align: center;
 	color: #3498db;
 }
+
+.user-info-tbl{
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-right: 1.5%;
+	margin-left: 1.5%;
+}
+
 .userPic{
 	width: 50px;
-	border-right: 1px solid gray;
+	border-radius: 4px;
 }
 
 .userPic-chat{
@@ -20,7 +33,6 @@
 .userPic-box{
 	width: 35px;
 	border-radius: 3px;
-	background-color: yellow;
 }
 
 .userName{
@@ -30,31 +42,41 @@
 	left: 4px;
 }
 
-.userbox{
-	border: 1px solid gray;
-	border-radius: 4px;
-}
-
 #logout, #more-rooms{
 	float: right;
 	margin-top: 8px;
 	margin-right: 4px;
 }
 
+#first-msg{
+	font-size: 18px;
+	color: #6C7A89;
+	text-align: center;
+}
+
 .messages-box, .users-box{
 	margin-top: 10px;
 }
 
+.users{
+	overflow-y: auto;
+	overflow-x: hidden;
+	max-height: 420px;
+}
+
 .messages{
 	max-height: 400px;
-	overflow: scroll;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .msg{
 	background-color: #ecf0f1;
 	color: black;
 	border-radius: 6px;
-	height: 60px;
+	border-top-left-radius: 0;
+	min-height: 60px;
+	/*height: auto;*/
 	max-width: 90%;
 	position: relative;
 	left: 45px;
@@ -64,9 +86,16 @@
 .msg p{
 	margin-left: 5px;
 	padding-top: 5px;
+	font-size: 14px;
 }
 
+
 .newmessage-div{
-	margin-left: 2%;
-	margin-right: 2%;
+	margin-left: 1.5%;
+	margin-right: 34.7%;
+}
+
+.newmessage{
+	font-size: 15px;
+	height: 40px;
 }

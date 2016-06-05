@@ -5,47 +5,57 @@
 	<title>{{room_name}}</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../css/room_styles.css">
+	<link rel="icon" href="../images/logo.png" type="image/png" sizes="16x16">
 	<script src="/socket.io/socket.io.js"></script>
 	<!-- CDNs Jquery & Bootstrap -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-6 col-md-8">
-		    	<div class="thumbnail">
-					<h1 class="title">{{room_name}}</h1>
-					<div class="userbox">
-						<img src="{{user.profilePic}}" alt="" class="userPic">
-						<h3 class="userName">{{user.fullname}}
-							<a class="btn btn-warning" id="logout" href="/logout">Logout</a>
-							<a class="btn btn-info" id="more-rooms" href="/chatrooms">More Chat Rooms</a>
-						</h3>
-					</div>
-					<div class="messages-box">
-						<div class="col-md-8">
-							<ul class="list-group">
-								<li class="list-group-item messages">
-									
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="users-box">
-						<div class="col-md-4">
-							<ul class="list-group users">
-								
-							</ul>
-						</div>
-					</div>
-					<div class="newmessage-div">
-						<input type="text" class="form-control newmessage" autocomplete="off" placeholder="Type your message and press enter !">
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="col-md-2">
+		<aside class="left-side"></aside>
 	</div>
+	<div class="col-md-8">
+			<div class="row">
+			    	<div class="thumbnail">
+						<h1 class="title">{{room_name}}</h1>
+						<div class="table-responsive user-info-tbl">
+							<table class="table">
+								<tr>
+									<td>
+										<img src="{{user.profilePic}}" alt="" class="userPic">
+										<h3 class="userName">{{user.fullname}}</h3>
+									</td>
+									<td>
+										<a class="btn btn-warning" id="logout" href="/logout">Logout</a>
+										<a class="btn btn-info" id="more-rooms" href="/chatrooms">More Chat Rooms</a>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="messages-box">
+							<div class="col-md-8">
+								<ul class="list-group">
+									<li class="list-group-item messages">
+										<p id="first-msg">There are not any messages to see!!</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="users-box">
+							<div class="col-md-4">
+								<ul class="list-group users">
+									
+								</ul>
+							</div>
+						</div>
+						<div class="newmessage-div">
+							<input type="text" class="form-control newmessage" autocomplete="off" placeholder="Type your message and press enter !">
+						</div>
+					</div>
+			</div>
+	</div>
+	<div class="col-md-2"></div>
 
 	<!-- JavaScript Codes Goes HERE -->
 	<script>
@@ -83,7 +93,13 @@
 				updateMessageFeed(msgs.userPic, msgs.message)
 			});
 
+			
+			
+
 			function updateMessageFeed(userPic, message){
+				//var $cont = $('.messages');
+				//$cont[0].scrollTop = $cont[0].scrollHeight;
+
 				var str = '<div class="msgbox">';
 					str +=	'<div class="pic">';
 					str +=		'<img class="userPic-chat" src="'+userPic+'"></div>';
@@ -92,7 +108,9 @@
 					str +=		'</div>';
 					str +=	'</div>';
 
-				$(str).hide().appendTo($('.messages')).slideDown(150);
+				$('#first-msg').html('');
+				$(str).hide().prependTo($('.messages')).slideDown(150);
+				//$cont[0].scrollTop = $cont[0].scrollHeight;
 			}
 
 			messages.on('updateUsersList', function (data) {
@@ -110,7 +128,8 @@
 
 			setInterval(function () {
 				messages.emit('updateList', {room: roomNum});
-			}, 15 * 1000);		
+			}, 15 * 1000);	
+
 		});
 	</script>
 

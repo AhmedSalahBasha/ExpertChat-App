@@ -5,20 +5,30 @@
 	<title>{{title}}</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../css/chatrooms_styles.css">
+	<link rel="icon" href="../images/logo.png" type="image/png" sizes="16x16">
 	<script src="/socket.io/socket.io.js"></script>
 	<!-- CDNs Jquery & Bootstrap -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
 		<div class="row">
-			<div class="col-sm-6 col-md-6">
 		    	<div class="thumbnail">
 					<h1 class="title">Chat Rooms</h1>
-					<div class="userbox">
-						<img src="{{user.profilePic}}" alt="" class="userPic">
-						<h3 class="userName">{{user.fullname}} <a class="btn btn-warning" id="logout" href="/logout">Logout</a></h3>
+					<div class="table-responsive user-info-tbl">
+						<table class="table">
+							<tr>
+								<td>
+									<img src="{{user.profilePic}}" alt="" class="userPic">
+									<h3 class="userName">{{user.fullname}}</h3>
+								</td>
+								<td>
+									<a class="btn btn-warning" id="logout" href="/logout">Logout</a>
+								</td>
+							</tr>
+						</table>
 					</div>
 					<div class="panel panel-default newroom-box">
 					  <!-- Default panel contents -->
@@ -38,7 +48,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	<div class="col-md-3"></div>
 	
 	<!--**** Javascripts Codes Goes Here ****-->
 	<script>
@@ -54,7 +64,7 @@
 				var procData = JSON.parse(data);
 				$('.roomlist').html('');
 				for(var i = 0; i < procData.length; i++){
-					var str = '<a href="room/' + procData[i].room_number + '"><li class="list-group-item">' + procData[i].room_name + '</li></a>';
+					var str = '<a class="rooms-name" href="room/' + procData[i].room_number + '"><li class="list-group-item">' + procData[i].room_name + '</li></a>';
 					$('.roomlist').prepend(str);
 				}
 			})
